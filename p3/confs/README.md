@@ -64,14 +64,13 @@ The username is `admin`. The setup script prints the initial password at the end
 
 ## GitOps application
 
-The directory `p3/gitops` is the content that must be pushed to your public GitHub repository.
-
 Expected GitHub repository layout:
 
 ```text
 .
-`-- manifests
-    `-- deployment.yaml
+`-- p3
+    `-- manifests
+        `-- deployment.yaml
 ```
 
 The first version uses:
