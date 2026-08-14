@@ -67,6 +67,14 @@ case "$(uname -m)" in
     ;;
 esac
 
+# permet de lancer l image playground amd64 sur une vm arm64
+if [ "$ARCH" = "arm64" ]; then
+  run_as_root apt-get install -y qemu-user-static binfmt-support
+  if need_cmd docker && docker info >/dev/null 2>&1; then
+    docker run --privileged --rm tonistiigi/binfmt --install amd64
+  fi
+fi
+
 # installe kubectl si absent ou inutilisable
 if ! need_cmd kubectl || ! kubectl version --client=true >/dev/null 2>&1; then
   tmp_dir="$(mktemp -d)"
