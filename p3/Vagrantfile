@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-24.04"
+
+  config.vm.define "icaharelP3" do |host|
+    host.vm.hostname = "icaharelP3"
+    host.vm.network "private_network", ip: "192.168.56.120"
+
+    host.vm.network "forwarded_port",
+      guest: 8081,
+      host: 8081,
+      host_ip: "127.0.0.1",
+      auto_correct: true
+
+    host.vm.provision "shell", inline: "sh /vagrant/scripts/setup.sh", privileged: false
+
+    host.vm.provider "virtualbox" do |virtualbox|
+      virtualbox.name = "icaharelP3"
+      virtualbox.cpus = 2
+      virtualbox.memory = 4096
+    end
+  end
+end
